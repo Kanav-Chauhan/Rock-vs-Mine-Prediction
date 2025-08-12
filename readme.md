@@ -47,13 +47,14 @@ We use **Logistic Regression** as the classification algorithm due to its simpli
 ## ▶️ How to Run
 1. Clone the repository:
    `
-   git clone https://github.com/Kanav-Chauhan/Rock-vs-Mine-Prediction.git
-   cd rock-vs-mine-prediction`
-2. Install Dependencies:
+   git clone https://github.com/Kanav-Chauhan/Rock-vs-Mine-Prediction.git`
+2. Open The folder:
+   `cd rock-vs-mine-prediction`
+3. Install Dependencies:
    `
    pip install -r requirements.txt`
 
-3. Run the app:
+4. Run the app:
    ` 
    streamlit run main.py`
 
