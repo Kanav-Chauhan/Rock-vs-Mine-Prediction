@@ -54,7 +54,7 @@ We use **Logistic Regression** as the classification algorithm due to its simpli
    `bash 
    streamlit run main.py`
 
-Made with ❤️ by Kanav Chauhan 
+ # Made with ❤️ by Kanav Chauhan 
 
    
 
