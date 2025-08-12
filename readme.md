@@ -9,6 +9,8 @@ Using the **Sonar Dataset**, this model learns from various frequency reflection
 
 We use **Logistic Regression** as the classification algorithm due to its simplicity, interpretability, and effectiveness in binary classification problems.
 
+![Prediction](static/1.png)
+
 ## 🚀 Features
 - **Interactive Web App** built using Streamlit.
 - **Random Test Sample Generator** for instant predictions.
@@ -22,6 +24,7 @@ We use **Logistic Regression** as the classification algorithm due to its simpli
 - **Streamlit** for web-based user interface.
 - **Plotly & Altair** for visualizations.
 
+![Prediction](static/2.png)
 
 ## 📊 Model Details
 - **Algorithm:** Logistic Regression
