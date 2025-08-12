@@ -21,36 +21,16 @@ with open("rock_mine_model.pkl", "rb") as file:
 
 accuracy = 0.84  # Example accuracy
 
-X = df.iloc[:, :-1].values
-y = df["Class"].values
-
-# Separate data by class for sampling
+# Separate data by class for sampling realistic inputs
 rock_data = df[df['Class'] == 'R'].iloc[:, :-1].values
 mine_data = df[df['Class'] == 'M'].iloc[:, :-1].values
 
-# ========== FIND PERFECT SAMPLES ==========
-probs = model.predict_proba(X)
-class_to_index = {c: i for i, c in enumerate(model.classes_)}
-
-results_df = pd.DataFrame({
-    'TrueLabel': y,
-    'PredictedLabel': model.predict(X),
-    'Prob_Rock': probs[:, class_to_index['R']],
-    'Prob_Mine': probs[:, class_to_index['M']],
-})
-
-correct_preds = results_df[results_df['TrueLabel'] == results_df['PredictedLabel']]
-
-rock_candidates = correct_preds[correct_preds['TrueLabel'] == 'R'].copy()
-rock_candidates['Confidence'] = rock_candidates['Prob_Rock']
-rock_best_idx = rock_candidates['Confidence'].idxmax()
-
-mine_candidates = correct_preds[correct_preds['TrueLabel'] == 'M'].copy()
-mine_candidates['Confidence'] = mine_candidates['Prob_Mine']
-mine_best_idx = mine_candidates['Confidence'].idxmax()
-
-perfect_rock_sample = X[rock_best_idx]
-perfect_mine_sample = X[mine_best_idx]
+def generate_sample(class_name):
+    if class_name == 'rock':
+        sample = rock_data[np.random.choice(rock_data.shape[0])]
+    else:
+        sample = mine_data[np.random.choice(mine_data.shape[0])]
+    return sample
 
 # ========== HEADER ==========
 st.title("🎯 Rock vs Mine Detection App")
@@ -84,35 +64,33 @@ st.subheader("🔍 Test the Model")
 if "input_str" not in st.session_state:
     st.session_state["input_str"] = ""
 
-col1, col2, col3, col4 = st.columns(4)
+input_str = st.text_area("Enter **60 comma-separated values**:", st.session_state["input_str"])
 
+# Buttons to fill input with realistic random samples
+col1, col2, col3 = st.columns(3)
 with col1:
-    if st.button("🎲 Fill with Alternating Mine/Rock Values"):
-        mine_sample = mine_data[np.random.choice(mine_data.shape[0])]
-        rock_sample = rock_data[np.random.choice(rock_data.shape[0])]
-        combined_sample = []
-        for i in range(60):
-            if i % 2 == 0:
-                combined_sample.append(mine_sample[i])
-            else:
-                combined_sample.append(rock_sample[i])
-        st.session_state["input_str"] = ",".join([f"{v:.3f}" for v in combined_sample])
+    if st.button("🎲 Fill with Random Values"):
+        random_values = np.random.uniform(0, 1, 60)
+        st.session_state["input_str"] = ",".join([f"{v:.3f}" for v in random_values])
+        st.experimental_rerun()
 
 with col2:
-    if st.button("🪨 Fill with Perfect Rock Sample"):
-        st.session_state["input_str"] = ",".join([f"{v:.3f}" for v in perfect_rock_sample])
+    if st.button("🪨 Fill with Rock-like Sample"):
+        sample = generate_sample('rock')
+        st.session_state["input_str"] = ",".join([f"{v:.3f}" for v in sample])
+        st.experimental_rerun()
 
 with col3:
-    if st.button("💣 Fill with Perfect Mine Sample"):
-        st.session_state["input_str"] = ",".join([f"{v:.3f}" for v in perfect_mine_sample])
+    if st.button("💣 Fill with Mine-like Sample"):
+        sample = generate_sample('mine')
+        st.session_state["input_str"] = ",".join([f"{v:.3f}" for v in sample])
+        st.experimental_rerun()
 
-with col4:
-    if st.button("Clear Input"):
-        st.session_state["input_str"] = ""
+# Show current input
+if input_str.strip():
+    st.code(input_str, language="text")
 
-input_str = st.session_state.get("input_str", "")
-input_str = st.text_area("Enter **60 comma-separated values**:", input_str)
-
+# Prediction button
 if st.button("🚀 Predict"):
     try:
         values = [float(x) for x in input_str.split(",")]
