@@ -47,7 +47,7 @@ We use **Logistic Regression** as the classification algorithm due to its simpli
 ## ▶️ How to Run
 1. Clone the repository:
    `
-   git clone https://github.com/yourusername/rock-vs-mine-prediction.git
+   git clone https://github.com/Kanav-Chauhan/Rock-vs-Mine-Prediction.git
    cd rock-vs-mine-prediction`
 2. Install Dependencies:
    `
