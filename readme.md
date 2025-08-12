@@ -3,7 +3,7 @@
 This project is a **machine learning classification model** that predicts whether a given object is a **rock** or a **mine** based on sonar data.
 
 ## 📌 Project Overview
-Using the **Sonar Dataset** (from the UCI Machine Learning Repository), this model learns from various frequency reflection patterns to classify objects detected by sonar into:
+Using the **Sonar Dataset**, this model learns from various frequency reflection patterns to classify objects detected by sonar into:
 - **Rock (R)**
 - **Mine (M)**
 
