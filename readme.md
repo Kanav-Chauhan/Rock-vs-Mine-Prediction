@@ -1,4 +1,4 @@
-# Rock vs Mine Prediction
+# Rock vs Mine Prediction - [Click for Live Demo](https://kanav-rock-vs-mine-prediction.streamlit.app/)
 
 This project is a **machine learning classification model** that predicts whether a given object is a **rock** or a **mine** based on sonar data.
 
